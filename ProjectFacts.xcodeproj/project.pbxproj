@@ -8,18 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		654C26B127CD246B004AAC93 /* ProjectFactsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26B027CD246B004AAC93 /* ProjectFactsApp.swift */; };
-		654C26B327CD246B004AAC93 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26B227CD246B004AAC93 /* ContentView.swift */; };
 		654C26B527CD246C004AAC93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654C26B427CD246C004AAC93 /* Assets.xcassets */; };
 		654C26B827CD246C004AAC93 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654C26B727CD246C004AAC93 /* Preview Assets.xcassets */; };
+		654C26C027CD24CA004AAC93 /* ProjectFactsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26BF27CD24CA004AAC93 /* ProjectFactsAPI.swift */; };
+		654C26C227CD2504004AAC93 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26C127CD2504004AAC93 /* UserDefaults.swift */; };
+		654C26C427CD2660004AAC93 /* CreateAccessTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26C327CD2660004AAC93 /* CreateAccessTokenView.swift */; };
+		654C26C627CD27F3004AAC93 /* AccessTokenCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26C527CD27F3004AAC93 /* AccessTokenCreator.swift */; };
+		654C26D027CF74B8004AAC93 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26CF27CF74B8004AAC93 /* WelcomeView.swift */; };
+		654C26D227CF76A0004AAC93 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D127CF76A0004AAC93 /* AppController.swift */; };
+		654C26D427CF7817004AAC93 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D327CF7817004AAC93 /* MainView.swift */; };
+		654C26D627CF79C5004AAC93 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D527CF79C5004AAC93 /* Optional.swift */; };
+		654C26D827CF7EBC004AAC93 /* PFTimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D727CF7EBC004AAC93 /* PFTimeEntry.swift */; };
+		654C26DA27CFAC02004AAC93 /* TimesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D927CFAC02004AAC93 /* TimesTableView.swift */; };
+		654C26DC27CFB26E004AAC93 /* ComponentsFormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26DB27CFB26E004AAC93 /* ComponentsFormatStyle.swift */; };
+		654C26DE27CFB81E004AAC93 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26DD27CFB81E004AAC93 /* DateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		654C26AD27CD246B004AAC93 /* ProjectFacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectFacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654C26B027CD246B004AAC93 /* ProjectFactsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFactsApp.swift; sourceTree = "<group>"; };
-		654C26B227CD246B004AAC93 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		654C26B427CD246C004AAC93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		654C26B727CD246C004AAC93 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		654C26B927CD246C004AAC93 /* ProjectFacts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectFacts.entitlements; sourceTree = "<group>"; };
+		654C26BF27CD24CA004AAC93 /* ProjectFactsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFactsAPI.swift; sourceTree = "<group>"; };
+		654C26C127CD2504004AAC93 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		654C26C327CD2660004AAC93 /* CreateAccessTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccessTokenView.swift; sourceTree = "<group>"; };
+		654C26C527CD27F3004AAC93 /* AccessTokenCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenCreator.swift; sourceTree = "<group>"; };
+		654C26CF27CF74B8004AAC93 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		654C26D127CF76A0004AAC93 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		654C26D327CF7817004AAC93 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		654C26D527CF79C5004AAC93 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
+		654C26D727CF7EBC004AAC93 /* PFTimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PFTimeEntry.swift; sourceTree = "<group>"; };
+		654C26D927CFAC02004AAC93 /* TimesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesTableView.swift; sourceTree = "<group>"; };
+		654C26DB27CFB26E004AAC93 /* ComponentsFormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsFormatStyle.swift; sourceTree = "<group>"; };
+		654C26DD27CFB81E004AAC93 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		654C26DF27D0C5D8004AAC93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		654C26E127D0CDE6004AAC93 /* 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 01.png; sourceTree = "<group>"; };
+		654C26E227D0CDE6004AAC93 /* 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 02.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +61,8 @@
 		654C26A427CD246B004AAC93 = {
 			isa = PBXGroup;
 			children = (
+				654C26DF27D0C5D8004AAC93 /* README.md */,
+				654C26E027D0CCA5004AAC93 /* Images */,
 				654C26AF27CD246B004AAC93 /* ProjectFacts */,
 				654C26AE27CD246B004AAC93 /* Products */,
 			);
@@ -53,7 +80,10 @@
 			isa = PBXGroup;
 			children = (
 				654C26B027CD246B004AAC93 /* ProjectFactsApp.swift */,
-				654C26B227CD246B004AAC93 /* ContentView.swift */,
+				654C26C727CD2807004AAC93 /* Extensions */,
+				654C26C827CD2813004AAC93 /* Views */,
+				654C26C927CD281C004AAC93 /* ViewModels */,
+				654C26CA27CD6860004AAC93 /* Models */,
 				654C26B427CD246C004AAC93 /* Assets.xcassets */,
 				654C26B927CD246C004AAC93 /* ProjectFacts.entitlements */,
 				654C26B627CD246C004AAC93 /* Preview Content */,
@@ -67,6 +97,55 @@
 				654C26B727CD246C004AAC93 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		654C26C727CD2807004AAC93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				654C26C127CD2504004AAC93 /* UserDefaults.swift */,
+				654C26D527CF79C5004AAC93 /* Optional.swift */,
+				654C26DB27CFB26E004AAC93 /* ComponentsFormatStyle.swift */,
+				654C26DD27CFB81E004AAC93 /* DateFormatter.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		654C26C827CD2813004AAC93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				654C26D327CF7817004AAC93 /* MainView.swift */,
+				654C26D927CFAC02004AAC93 /* TimesTableView.swift */,
+				654C26CF27CF74B8004AAC93 /* WelcomeView.swift */,
+				654C26C327CD2660004AAC93 /* CreateAccessTokenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		654C26C927CD281C004AAC93 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				654C26D127CF76A0004AAC93 /* AppController.swift */,
+				654C26C527CD27F3004AAC93 /* AccessTokenCreator.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		654C26CA27CD6860004AAC93 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				654C26BF27CD24CA004AAC93 /* ProjectFactsAPI.swift */,
+				654C26D727CF7EBC004AAC93 /* PFTimeEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		654C26E027D0CCA5004AAC93 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				654C26E127D0CDE6004AAC93 /* 01.png */,
+				654C26E227D0CDE6004AAC93 /* 02.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +218,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				654C26B327CD246B004AAC93 /* ContentView.swift in Sources */,
+				654C26C627CD27F3004AAC93 /* AccessTokenCreator.swift in Sources */,
+				654C26D627CF79C5004AAC93 /* Optional.swift in Sources */,
+				654C26D427CF7817004AAC93 /* MainView.swift in Sources */,
+				654C26DA27CFAC02004AAC93 /* TimesTableView.swift in Sources */,
+				654C26C227CD2504004AAC93 /* UserDefaults.swift in Sources */,
 				654C26B127CD246B004AAC93 /* ProjectFactsApp.swift in Sources */,
+				654C26D227CF76A0004AAC93 /* AppController.swift in Sources */,
+				654C26D827CF7EBC004AAC93 /* PFTimeEntry.swift in Sources */,
+				654C26C427CD2660004AAC93 /* CreateAccessTokenView.swift in Sources */,
+				654C26DC27CFB26E004AAC93 /* ComponentsFormatStyle.swift in Sources */,
+				654C26DE27CFB81E004AAC93 /* DateFormatter.swift in Sources */,
+				654C26C027CD24CA004AAC93 /* ProjectFactsAPI.swift in Sources */,
+				654C26D027CF74B8004AAC93 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +366,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -303,6 +394,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
