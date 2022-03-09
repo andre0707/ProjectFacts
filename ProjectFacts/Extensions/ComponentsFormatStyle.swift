@@ -12,7 +12,7 @@ extension Date.ComponentsFormatStyle {
     /// Format style will llok like this: days[d] hours:minutes:seconds
     static var extendedTimeDuration: Date.ComponentsFormatStyle = {
         var style = Date.ComponentsFormatStyle.timeDuration
-        style.fields = [.day, .hour, .minute, .second]
+        style.fields = [.day, .hour, .minute]
         return style
     }()
 }

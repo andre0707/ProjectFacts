@@ -115,7 +115,11 @@ final class AppController: ObservableObject {
         let loggedInTime = now.timeIntervalSince(loginDate)
         
         let referenceDate = now + loggedInTime - totalDuration - sumBreak
-        unbookedTime = (now ..< referenceDate).formatted(.timeDuration)
+        if referenceDate <= now {
+            unbookedTime = "0"
+        } else {
+            unbookedTime = (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
+        }
         
         totalBreakString = sumBreak > 0 ? "\(sumBreak.formatted()) min" : "-"
     }
