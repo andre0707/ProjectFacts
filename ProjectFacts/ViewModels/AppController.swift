@@ -16,7 +16,7 @@ final class AppController: ObservableObject {
     
     
     /// The date which will be used for all evaluations
-    var ticketDate: Date = Date()
+    @Published var ticketDate: Date = Date()
     
     /// A list of all the project facts tickets which are presented in the list view
     @Published private(set) var pfTicketTimes: [PFTimeEntry] = []
@@ -114,7 +114,7 @@ final class AppController: ObservableObject {
         }
         let loggedInTime = now.timeIntervalSince(loginDate)
         
-        let referenceDate = now + loggedInTime - totalDuration - sumBreak
+        let referenceDate = now + loggedInTime - totalDuration - sumBreak * 60
         if referenceDate <= now {
             unbookedTime = "0"
         } else {
@@ -147,8 +147,20 @@ final class AppController: ObservableObject {
                 }
             } catch {
                 print((error as! ProjectFactsAPI.Errors).description)
+                DispatchQueue.main.async {
+                    self.pfTicketTimes = []
+                    self.totalDuration = 0
+                    self.totalBillableDuration = 0
+                    self.updateTimeStrings()
+                }
             }
         }
+    }
+    
+    /// This function will set the picked day to today and read all the tickets
+    func readToday() {
+        ticketDate = Date.now
+        readTimes()
     }
     
     

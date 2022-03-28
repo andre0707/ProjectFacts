@@ -39,6 +39,14 @@ struct MainView: View {
             
             ToolbarItem(placement: .navigation) {
                 Button(action: {
+                    appController.readToday()
+                }, label: {
+                    Label("Today", systemImage: "calendar")
+                })
+            }
+            
+            ToolbarItem(placement: .navigation) {
+                Button(action: {
                     appController.readTimes()
                 }, label: {
                     Label("Read times", systemImage: "play.fill")
