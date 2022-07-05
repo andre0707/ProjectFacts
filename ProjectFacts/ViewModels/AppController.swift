@@ -92,6 +92,13 @@ final class AppController: ObservableObject {
                 }
             } catch {
                 print((error as! ProjectFactsAPI.Errors).description)
+                
+                DispatchQueue.main.async {
+                    self.loginDate = nil
+                    self.logoutDate = nil
+                    self.sumBreak = 0
+                    self.updateTimeStrings()
+                }
             }
         }
     }
@@ -99,7 +106,10 @@ final class AppController: ObservableObject {
     /// This function will update all the time related strings, so the UI gets updated
     func updateTimeStrings() {
         guard let loginDate = loginDate else {
-            loginDateString = ""
+            loginDateString = "-"
+            logoutDateString = "-"
+            unbookedTime = "-"
+            totalBreakString = "-"
             return
         }
         loginDateString = loginDate.formatted(date: .omitted, time: .shortened)
