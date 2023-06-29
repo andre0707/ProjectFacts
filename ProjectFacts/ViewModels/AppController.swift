@@ -7,8 +7,14 @@
 
 import Combine
 import Foundation
+import os
+
+/// A logger to log errors
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier, category: "AppController")
+
 
 /// The app controller view model
+@MainActor
 final class AppController: ObservableObject {
     
     /// Indicator, if the login view should be displayed
@@ -40,6 +46,14 @@ final class AppController: ObservableObject {
     @Published private(set) var totalBreakString: String = "-"
     /// A string representation of all the unbooked time
     @Published private(set) var unbookedTime: String = "-"
+    
+    /// Control the alert message
+    @Published var showAlert: Bool = false
+    @Published private(set) var alertMessage: String = "" {
+        didSet {
+            showAlert = true
+        }
+    }
     
     
     /// Reference to the access token creator which is needed when the user wants to create an access token
@@ -91,13 +105,15 @@ final class AppController: ObservableObject {
                     self.updateTimeStrings()
                 }
             } catch {
-                print((error as! ProjectFactsAPI.Errors).description)
+                let errorMessage = (error as! ProjectFactsAPI.Errors).description
+                logger.error("\(errorMessage)")
                 
                 DispatchQueue.main.async {
                     self.loginDate = nil
                     self.logoutDate = nil
                     self.sumBreak = 0
                     self.updateTimeStrings()
+                    self.alertMessage = errorMessage
                 }
             }
         }
@@ -156,12 +172,15 @@ final class AppController: ObservableObject {
                     self.updateTimeStrings()
                 }
             } catch {
-                print((error as! ProjectFactsAPI.Errors).description)
+                let errorMessage = (error as! ProjectFactsAPI.Errors).description
+                logger.error("\(errorMessage)")
+                
                 DispatchQueue.main.async {
                     self.pfTicketTimes = []
                     self.totalDuration = 0
                     self.totalBillableDuration = 0
                     self.updateTimeStrings()
+                    self.alertMessage = errorMessage
                 }
             }
         }

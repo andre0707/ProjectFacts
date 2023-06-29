@@ -24,6 +24,8 @@ struct MainView: View {
             }
         }
         
+        // MARK: - Toolbar
+        
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(action: {
@@ -53,6 +55,15 @@ struct MainView: View {
                 })
             }
         }
+        
+        
+        // MARK: - Alert
+        
+        .alert(appController.alertMessage, isPresented: $appController.showAlert, actions: {
+            Button("Ok") {
+                appController.showAlert = false
+            }
+        })
     }
 }
 

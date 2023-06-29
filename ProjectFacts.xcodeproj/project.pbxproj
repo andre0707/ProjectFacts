@@ -22,6 +22,8 @@
 		654C26DA27CFAC02004AAC93 /* TimesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26D927CFAC02004AAC93 /* TimesTableView.swift */; };
 		654C26DC27CFB26E004AAC93 /* ComponentsFormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26DB27CFB26E004AAC93 /* ComponentsFormatStyle.swift */; };
 		654C26DE27CFB81E004AAC93 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C26DD27CFB81E004AAC93 /* DateFormatter.swift */; };
+		65DFB1A12A4977F0008D6BD6 /* HTMLStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DFB1A02A4977F0008D6BD6 /* HTMLStringView.swift */; };
+		65DFB1A32A49A021008D6BD6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DFB1A22A49A021008D6BD6 /* Bundle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		654C26DF27D0C5D8004AAC93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		654C26E127D0CDE6004AAC93 /* 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 01.png; sourceTree = "<group>"; };
 		654C26E227D0CDE6004AAC93 /* 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 02.png; sourceTree = "<group>"; };
+		65DFB1A02A4977F0008D6BD6 /* HTMLStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLStringView.swift; sourceTree = "<group>"; };
+		65DFB1A22A49A021008D6BD6 /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +106,11 @@
 		654C26C727CD2807004AAC93 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				654C26C127CD2504004AAC93 /* UserDefaults.swift */,
-				654C26D527CF79C5004AAC93 /* Optional.swift */,
+				65DFB1A22A49A021008D6BD6 /* Bundle.swift */,
 				654C26DB27CFB26E004AAC93 /* ComponentsFormatStyle.swift */,
 				654C26DD27CFB81E004AAC93 /* DateFormatter.swift */,
+				654C26D527CF79C5004AAC93 /* Optional.swift */,
+				654C26C127CD2504004AAC93 /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -113,10 +118,11 @@
 		654C26C827CD2813004AAC93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				654C26C327CD2660004AAC93 /* CreateAccessTokenView.swift */,
+				65DFB1A02A4977F0008D6BD6 /* HTMLStringView.swift */,
 				654C26D327CF7817004AAC93 /* MainView.swift */,
 				654C26D927CFAC02004AAC93 /* TimesTableView.swift */,
 				654C26CF27CF74B8004AAC93 /* WelcomeView.swift */,
-				654C26C327CD2660004AAC93 /* CreateAccessTokenView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 				654C26D627CF79C5004AAC93 /* Optional.swift in Sources */,
 				654C26D427CF7817004AAC93 /* MainView.swift in Sources */,
 				654C26DA27CFAC02004AAC93 /* TimesTableView.swift in Sources */,
+				65DFB1A12A4977F0008D6BD6 /* HTMLStringView.swift in Sources */,
 				654C26C227CD2504004AAC93 /* UserDefaults.swift in Sources */,
 				654C26B127CD246B004AAC93 /* ProjectFactsApp.swift in Sources */,
 				654C26D227CF76A0004AAC93 /* AppController.swift in Sources */,
@@ -230,6 +237,7 @@
 				654C26DC27CFB26E004AAC93 /* ComponentsFormatStyle.swift in Sources */,
 				654C26DE27CFB81E004AAC93 /* DateFormatter.swift in Sources */,
 				654C26C027CD24CA004AAC93 /* ProjectFactsAPI.swift in Sources */,
+				65DFB1A32A49A021008D6BD6 /* Bundle.swift in Sources */,
 				654C26D027CF74B8004AAC93 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

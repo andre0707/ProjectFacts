@@ -58,6 +58,7 @@ enum ProjectFactsAPI {
         static let device = "/api/device/"
         static let time = "/api/time/"
         static let day = "/api/day/"
+        static let ticket = "/api/ticket/"
     }
     
     
@@ -239,7 +240,7 @@ enum ProjectFactsAPI {
         let amountBillable: Int /// Minuates
         let description: String
         let color: String?
-        let hourlyRateInternal: Double
+        //let hourlyRateInternal: Double /// No longer available
         let hourlyRateExternal: Double
         let begin: String? /// Date representation in ISO8601
         let end: String? /// Date representation in ISO8601
@@ -299,6 +300,44 @@ enum ProjectFactsAPI {
             }
             
             return result
+        } catch {
+            throw Errors.decodingError(error)
+        }
+    }
+    
+    
+    // MARK: - Read tickets
+    
+    /// A structure representing a single item from a `Endpoints.ticket` request
+    private struct TicketData: Codable {
+        let ticketNumber: String
+        let subject: String
+        let description: String
+    }
+    
+    /// Will read the ticket details of the ticket with `ticketId`
+    /// - Parameters:
+    ///   - ticketId: The id of the ticket which should be read
+    ///   - accessToken: The access token structure
+    ///   - baseUrl: The base url to use
+    /// - Returns: The description of the ticket
+    static func readTicketDescription(for ticketId: Int, using accessToken: UserAccessToken, on baseUrl: URL) async throws -> String {
+        
+        let endpointUrl = baseUrl.baseURL?.appendingPathComponent(Endpoint.ticket) ?? baseUrl.appendingPathComponent(Endpoint.ticket)
+        
+        let url = endpointUrl.appendingPathComponent("\(ticketId)")
+        
+        let request = try urlRequest(for: url, using: accessToken)
+        
+        do {
+            let (data, urlResponse) = try await URLSession.shared.data(for: request, delegate: nil)
+            guard let httpResponse = urlResponse as? HTTPURLResponse else { throw Errors.invalidResponse }
+            guard httpResponse.statusCode == 200 else { throw Errors.connectionError(httpResponse)}
+                        
+            let ticketData = try JSONDecoder().decode(TicketData.self, from: data)
+            
+            return ticketData.description
+            
         } catch {
             throw Errors.decodingError(error)
         }
