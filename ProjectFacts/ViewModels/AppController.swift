@@ -96,7 +96,12 @@ final class AppController: ObservableObject {
         
         Task {
             do {
-                let result = try await ProjectFactsAPI.loginTime(for: ticketDate, using: userAccessToken, on: baseUrl)
+                guard let result = try await ProjectFactsAPI.loginTime(for: ticketDate, using: userAccessToken, on: baseUrl) else {
+                    DispatchQueue.main.async {
+                        self.alertMessage = "No login for the selected date found"
+                    }
+                    return
+                }
                 
                 DispatchQueue.main.async {
                     self.loginDate = result.begin

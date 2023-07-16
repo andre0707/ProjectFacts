@@ -166,6 +166,11 @@ enum ProjectFactsAPI {
     /// A structure representing a `Endpoint.day` response
     private struct DaysResponse: Codable {
         let items: [ResponseItem]
+        
+        init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<ProjectFactsAPI.DaysResponse.CodingKeys> = try decoder.container(keyedBy: ProjectFactsAPI.DaysResponse.CodingKeys.self)
+            self.items = try container.decodeIfPresent([ProjectFactsAPI.ResponseItem].self, forKey: ProjectFactsAPI.DaysResponse.CodingKeys.items) ?? []
+        }
     }
     
     /// A structure representing a single item from a `Endpoints.day` request
@@ -181,7 +186,7 @@ enum ProjectFactsAPI {
     ///   - accessToken: The access token structure
     ///   - baseUrl: The base url to use
     /// - Returns: The resulting login information for `date`
-    static func loginTime(for date: Date, using accessToken: UserAccessToken, on baseUrl: URL) async throws -> DayAttendance {
+    static func loginTime(for date: Date, using accessToken: UserAccessToken, on baseUrl: URL) async throws -> DayAttendance? {
         let formattedDate = DateFormatter.pfCompatible.string(from: date)
         
         let endpointUrl = baseUrl.baseURL?.appendingPathComponent(Endpoint.day) ?? baseUrl.appendingPathComponent(Endpoint.day)
@@ -208,7 +213,13 @@ enum ProjectFactsAPI {
             guard let httpResponse = dayResponse as? HTTPURLResponse else { throw Errors.invalidResponse }
             guard httpResponse.statusCode == 200 else { throw Errors.invalidResponse }
             
-            let dayObject = try JSONDecoder().decode(DayResponse.self, from: dayData)
+            let dayObject: DayResponse
+            do {
+                dayObject = try JSONDecoder().decode(DayResponse.self, from: dayData)
+            } catch {
+                print("No login information for this day")
+                return nil
+            }
             print(dayObject)
                         
             let formatter = DateFormatter.iso8601Full
@@ -232,6 +243,11 @@ enum ProjectFactsAPI {
     /// A structure representing a `Endpoint.time` response
     private struct TimesResponse: Codable {
         let items: [ResponseItem]
+        
+        init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<ProjectFactsAPI.TimesResponse.CodingKeys> = try decoder.container(keyedBy: ProjectFactsAPI.TimesResponse.CodingKeys.self)
+            self.items = try container.decodeIfPresent([ProjectFactsAPI.ResponseItem].self, forKey: ProjectFactsAPI.TimesResponse.CodingKeys.items) ?? []
+        }
     }
     
     /// A structure representing a single item from a `Endpoints.time` request
