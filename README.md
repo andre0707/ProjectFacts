@@ -26,4 +26,6 @@ There are also some basic login time information available
 
 ## Disclaimer
 
-Errors which can occour when using the project facts API are currently not displayed in the app.
+There currently is a problem displaying images in the ticket description.
+The description text is html code and the image source is not a direct link to the image.
+There is some out commented code which did an attempt to download the images first, but this also did not really work.
