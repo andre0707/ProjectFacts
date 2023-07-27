@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RegexBuilder
 
 // Check: https://docs.google.com/presentation/d/1rsZav2HonLQyCSyavgEOrSNYUE7SGFIEj9epVH5R4is/edit#slide=id.g2104f6f7d9_0_4
 // JSON-Representants as Typescript-Classes : https://sync.projectfacts.de/api/api/dto.ts
@@ -351,6 +352,41 @@ enum ProjectFactsAPI {
             guard httpResponse.statusCode == 200 else { throw Errors.connectionError(httpResponse)}
                         
             let ticketData = try JSONDecoder().decode(TicketData.self, from: data)
+            
+            /// The images can not directly be displayed. So the idea is to extract the image links from the html description and download the images.
+            /// The image links could then be replaced by a base64 version of the images. Another idea would be to cache the images in the temp directory.
+            ///
+            /// However, the download of the images does not seem to work so easily. Originally the images use `action=writeresp` in their url.
+            /// In the browser it seems to be possible to download them with `action=download`. But the url call to download them does not work.
+            ///
+            /// For now, reading tickets will not include the images in the description. This is why the following code is commented out and was used for testing purposes during development.
+            
+            /*
+            // This will find all image tags inside the hmtl description.
+            let imgSrc = Reference(Substring.self)
+            let myRegexExpression = Regex {
+                "<img"
+                ZeroOrMore(.any, .reluctant)
+                "src=\""
+                Capture(ZeroOrMore(.any, .reluctant), as: imgSrc)
+                "\""
+                ZeroOrMore(.any, .reluctant)
+                ">"
+            }
+            let results = ticketData.description.matches(of: myRegexExpression)
+            let imageUrls = results.compactMap { URL(string: baseUrl.absoluteString + $0[imgSrc].replacingOccurrences(of: "&amp;", with: "&")) }
+            for url in imageUrls {
+                // Download all images and then display them in base64 mode or so
+                
+                let imageRequest = try urlRequest(for: URL(string: "https://aws.projectfacts.de/defaultFileIO.do?id=911.275388476&action=download")!, using: accessToken)
+                let (imageData, _) = try await URLSession.shared.data(for: request, delegate: nil)
+                
+                /// For testing purposes we will try to write the file to the temp directory.
+                print(imageData)
+                print(URL.temporaryDirectory)
+                try imageData.write(to: URL.temporaryDirectory.appendingPathComponent("image.jpg"))
+            }
+             */
             
             return ticketData.description
                 .replacingOccurrences(of: #"src="/"#, with: "src=\"\(baseUrl.absoluteString)/")
