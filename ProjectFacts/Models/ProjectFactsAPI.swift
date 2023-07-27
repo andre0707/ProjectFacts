@@ -353,6 +353,8 @@ enum ProjectFactsAPI {
             let ticketData = try JSONDecoder().decode(TicketData.self, from: data)
             
             return ticketData.description
+                .replacingOccurrences(of: #"src="/"#, with: "src=\"\(baseUrl.absoluteString)/")
+                .replacingOccurrences(of: "&amp;", with: "&")
             
         } catch {
             throw Errors.decodingError(error)

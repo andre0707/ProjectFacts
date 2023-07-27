@@ -54,6 +54,28 @@ struct MainView: View {
                     Label("Read times", systemImage: "play.fill")
                 })
             }
+            
+            
+            ToolbarItem(placement: .navigation) {
+                HStack {
+                    TextField("Ticket id", text: $appController.ticketId)
+                        .frame(width: 200)
+                    
+                    Button(action: {
+                        appController.readTicket()
+                    }, label: {
+                        Label("Read ticket", systemImage: "ticket")
+                    })
+                }
+            }
+        }
+        
+        
+        // MARK: - Sheet
+        
+        .sheet(item: $appController.ticketData) { ticketData in
+            HTMLStringView(htmlContent: ticketData.description)
+                .frame(minWidth: 800, minHeight: 600)
         }
         
         

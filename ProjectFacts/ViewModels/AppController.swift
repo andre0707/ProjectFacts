@@ -76,7 +76,7 @@ final class AppController: ObservableObject {
         
         presentLoginForm = UserDefaults.standard.accessToken.isNilOrEmpty
         if !presentLoginForm {
-            readLogin()
+            readLogin(ignoreAlertMessages: true)
         }
         
         accessTokenCreator.didCreateAccessTokenPublisher
@@ -89,7 +89,7 @@ final class AppController: ObservableObject {
     
     
     /// This function will read all the login data for the provided `ticketDate`
-    func readLogin() {
+    func readLogin(ignoreAlertMessages: Bool) {
         guard let userAccessToken = UserDefaults.standard.userAccessToken,
               let baseUrl = URL(string: UserDefaults.standard.baseUrl)
         else { return }
@@ -97,6 +97,7 @@ final class AppController: ObservableObject {
         Task {
             do {
                 guard let result = try await ProjectFactsAPI.loginTime(for: ticketDate, using: userAccessToken, on: baseUrl) else {
+                    guard !ignoreAlertMessages else { return }
                     DispatchQueue.main.async {
                         self.alertMessage = "No login for the selected date found"
                     }
@@ -164,7 +165,7 @@ final class AppController: ObservableObject {
               let baseUrl = URL(string: UserDefaults.standard.baseUrl)
         else { return }
         
-        readLogin()
+        readLogin(ignoreAlertMessages: false)
         
         Task {
             do {
@@ -191,13 +192,54 @@ final class AppController: ObservableObject {
         }
     }
     
+    /// The ticket id the user can enter to look up this ticket
+    @Published var ticketId: String = ""
+    
     /// This function will set the picked day to today and read all the tickets
     func readToday() {
         ticketDate = Date.now
         readTimes()
     }
     
+    /// Helper object for ticket data.
+    /// It needs a unique id, so presenting the dat in a sheet will work correct
+    struct TicketData: Identifiable {
+        let id = UUID()
+        let description: String
+    }
     
+    /// The ticket data which should be displayed in a sheet
+    @Published var ticketData: TicketData? = nil
+    
+    /// User intend to read the ticket data. This will use the `ticketId` the user entered.
+    func readTicket() {
+        guard let userAccessToken = UserDefaults.standard.userAccessToken,
+              let baseUrl = URL(string: UserDefaults.standard.baseUrl)
+        else { return }
+        
+        guard !ticketId.isEmpty,
+              let ticketId = Int(ticketId)
+        else {
+            self.alertMessage = "Invalid ticket id"
+            return
+        }
+        
+        Task {
+            do {
+                let description = try await ProjectFactsAPI.readTicketDescription(for: ticketId, using: userAccessToken, on: baseUrl)
+                DispatchQueue.main.async {
+                    self.ticketData = TicketData(description: description)
+                }
+            } catch {
+                let errorMessage = (error as! ProjectFactsAPI.Errors).description
+                logger.error("\(errorMessage)")
+                
+                DispatchQueue.main.async {
+                    self.alertMessage = errorMessage
+                }
+            }
+        }
+    }
 }
 
 
