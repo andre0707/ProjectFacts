@@ -56,10 +56,53 @@ enum ProjectFactsAPI {
     
     /// A list of the endpoints
     private enum Endpoint {
-        static let device = "/api/device/"
-        static let time = "/api/time/"
-        static let day = "/api/day/"
-        static let ticket = "/api/ticket/"
+        static let api = "/api/api"
+        static let attendance = "/api/attendance"
+        static let attendancecategory = "/api/attendancecategory"
+        static let bookmark = "/api/bookmark"
+        static let cancellation = "/api/cancellation"
+        static let cancellationposition = "/api/cancellationposition"
+        static let chatgroup = "/api/chatgroup"
+        static let chatmessage = "/api/chatmessage"
+        static let cico = "/api/cico"
+        static let colorlabel = "/api/colorlabel"
+        static let contact = "/api/contact"
+        static let contactfield = "/api/contactfield"
+        static let contract = "/api/contract"
+        static let contractposition = "/api/contractposition"
+        static let correctiveinvoice = "/api/correctiveinvoice"
+        static let correctiveinvoiceposition = "/api/correctiveinvoiceposition"
+        static let creditnote = "/api/creditnote"
+        static let creditnoteposition = "/api/creditnoteposition"
+        static let crmactivity = "/api/crmactivity"
+        static let currency = "/api/currency"
+        static let day = "/api/day"
+        static let device = "/api/device"
+        static let `enum` = "/api/enum"
+        static let expense = "/api/expense"
+        static let file = "/api/file"
+        static let financepositiongroup = "/api/financepositiongroup"
+        static let interface = "/api/interface"
+        static let invoice = "/api/invoice"
+        static let invoiceposition = "/api/invoiceposition"
+        static let notification = "/api/notification"
+        static let offer = "/api/offer"
+        static let offerposition = "/api/offerposition"
+        static let organization = "/api/organization"
+        static let project = "/api/project"
+        static let projectfolder = "/api/projectfolder"
+        static let projecthistory = "/api/projecthistory"
+        static let testaccount = "/api/testaccount"
+        static let ticket = "/api/ticket"
+        static let ticketchannel = "/api/ticketchannel"
+        static let ticketprocess = "/api/ticketprocess"
+        static let ticketstate = "/api/ticketstate"
+        static let time = "/api/time"
+        static let timecategory = "/api/timecategory"
+        static let timetemplate = "/api/timetemplate"
+        static let travelexpenses = "/api/travelexpenses"
+        static let user = "/api/user"
+        static let vacationrequest = "/api/vacationrequest"
     }
     
     
@@ -86,6 +129,41 @@ enum ProjectFactsAPI {
         let value: Int
         let idKey: String
         let rel: String
+    }
+    
+    
+    // MARK: - API description
+    
+    /// A simple helper structure for api description item
+    struct ApiEndpointDescription: Codable {
+        let caption: String
+        let href: String
+    }
+    
+    private struct ApiEndpointDescriptionResponse: Codable {
+        let items: [ApiEndpointDescription]
+    }
+    
+    /// Will return the enpoints of the api
+    /// - Parameters:
+    ///   - accessToken: The access token to use
+    ///   - baseUrl: The base url
+    /// - Returns: The list of endpoints
+    static func apiDescription(using accessToken: UserAccessToken, on baseUrl: URL) async throws -> [ApiEndpointDescription] {
+        let url = baseUrl.baseURL?.appendingPathComponent(Endpoint.api) ?? baseUrl.appendingPathComponent(Endpoint.api)
+        
+        let request = try urlRequest(for: url, using: accessToken)
+        
+        do {
+            let (data, urlResponse) = try await URLSession.shared.data(for: request, delegate: nil)
+            guard let httpResponse = urlResponse as? HTTPURLResponse else { throw Errors.invalidResponse }
+            guard httpResponse.statusCode == 200 else { throw Errors.connectionError(httpResponse)}
+                        
+            return try JSONDecoder().decode(ApiEndpointDescriptionResponse.self, from: data).items
+            
+        } catch {
+            throw Errors.decodingError(error)
+        }
     }
     
     
@@ -265,6 +343,18 @@ enum ProjectFactsAPI {
         // let invoiceOptions: String? /// APILinkObject
         let date: String
         //let timetemplate: String? /// APILinkObject
+        let ticket: TicketResponse
+        
+        /// A structure representing a ticket response within a `TimeResponse`
+        struct TicketResponse: Codable {
+            let caption: String
+            let title: String
+            let href: String
+            let value: Int
+            let idKey: String
+        }
+        
+        var ticketId: Int { ticket.value }
     }
     
     /// This function will read the ticket time information for the provided `date`
@@ -313,7 +403,8 @@ enum ProjectFactsAPI {
                 result.append(PFTimeEntry(id: timeId,
                                           duration: TimeInterval(timeObject.amount),
                                           billableDuration: TimeInterval(timeObject.amountBillable),
-                                          description: timeObject.description))
+                                          description: timeObject.description,
+                                          ticketId: timeObject.ticketId))
             }
             
             return result
@@ -357,7 +448,9 @@ enum ProjectFactsAPI {
             /// The image links could then be replaced by a base64 version of the images. Another idea would be to cache the images in the temp directory.
             ///
             /// However, the download of the images does not seem to work so easily. Originally the images use `action=writeresp` in their url.
-            /// In the browser it seems to be possible to download them with `action=download`. But the url call to download them does not work.
+            /// In the browser it seems to be possible to download them with `action=download`. 
+            /// But calling either of them via url request downloads only the login page and not the actual image
+            /// There is probably a cookie or so missing.
             ///
             /// For now, reading tickets will not include the images in the description. This is why the following code is commented out and was used for testing purposes during development.
             
@@ -379,14 +472,22 @@ enum ProjectFactsAPI {
                 // Download all images and then display them in base64 mode or so
                 
                 let imageRequest = try urlRequest(for: URL(string: "https://aws.projectfacts.de/defaultFileIO.do?id=911.275388476&action=download")!, using: accessToken)
-                let (imageData, _) = try await URLSession.shared.data(for: request, delegate: nil)
+                let (imageData, _) = try await URLSession.shared.data(for: imageRequest, delegate: nil)
                 
                 /// For testing purposes we will try to write the file to the temp directory.
                 print(imageData)
                 print(URL.temporaryDirectory)
                 try imageData.write(to: URL.temporaryDirectory.appendingPathComponent("image.jpg"))
+                
+                let imageRequest2 = try urlRequest(for: URL(string: "https://aws.projectfacts.de/defaultFileIO.do?id=911.275388476&action=writeresp")!, using: accessToken)
+                let (imageData2, _) = try await URLSession.shared.data(for: imageRequest2, delegate: nil)
+                
+                /// For testing purposes we will try to write the file to the temp directory.
+                print(imageData2)
+                print(URL.temporaryDirectory)
+                try imageData2.write(to: URL.temporaryDirectory.appendingPathComponent("image.jpg"))
             }
-             */
+            */
             
             return ticketData.description
                 .replacingOccurrences(of: #"src="/"#, with: "src=\"\(baseUrl.absoluteString)/")

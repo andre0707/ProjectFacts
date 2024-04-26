@@ -17,10 +17,14 @@ struct PFTimeEntry: Identifiable {
     let billableDuration: TimeInterval
     /// The description
     let description: String
+    /// The id of the ticket on which this time entry was booked
+    let ticketId: Int
     
     
     /// Text representation of `duration`
     var durationText: String { duration.formatted() }
     /// Text representation of `billableDuration`
     var billableDurationText: String { billableDuration.formatted() }
+    /// Text representation of `ticketId`
+    var ticketIdText: String { "\(ticketId)" }
 }

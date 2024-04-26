@@ -27,6 +27,8 @@ struct TimesTableView: View {
                     .width(min: 100, ideal: 100)
                 TableColumn("Billable duration (min)", value: \.billableDurationText)
                     .width(ideal: 100)
+                TableColumn("Ticket id", value: \.ticketIdText)
+                    .width(ideal: 100)
             }
             
             /// Time infos

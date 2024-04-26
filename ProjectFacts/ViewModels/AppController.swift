@@ -258,9 +258,9 @@ extension AppController {
         
         
         controller.pfTicketTimes = [
-            PFTimeEntry(id: 1, duration: 60, billableDuration: 45, description: "This is a test item entry"),
-            PFTimeEntry(id: 2, duration: 22, billableDuration: 22, description: "Here is some description"),
-            PFTimeEntry(id: 3, duration: 45, billableDuration: 45, description: "Dev. new awesome SwiftUI app")
+            PFTimeEntry(id: 1, duration: 60, billableDuration: 45, description: "This is a test item entry", ticketId: 1),
+            PFTimeEntry(id: 2, duration: 22, billableDuration: 22, description: "Here is some description", ticketId: 2),
+            PFTimeEntry(id: 3, duration: 45, billableDuration: 45, description: "Dev. new awesome SwiftUI app", ticketId: 3)
         ]
         
         controller.totalDuration = controller.pfTicketTimes.reduce(into: TimeInterval(0), { $0 += $1.duration }) * 60
