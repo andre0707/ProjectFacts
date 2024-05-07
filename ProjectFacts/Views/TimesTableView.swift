@@ -27,8 +27,23 @@ struct TimesTableView: View {
                     .width(min: 100, ideal: 100)
                 TableColumn("Billable duration (min)", value: \.billableDurationText)
                     .width(ideal: 100)
-                TableColumn("Ticket id", value: \.ticketIdText)
-                    .width(ideal: 100)
+                TableColumn("Ticket id") { data in
+                    Text(verbatim: data.ticketIdText)
+                        .frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity,
+                            alignment: .leading
+                        )
+                        .contentShape(Rectangle())
+                        .contextMenu {
+                            Button("Copy") {
+                                let pasteboard = NSPasteboard.general
+                                pasteboard.declareTypes([.string], owner: nil)
+                                pasteboard.setString(data.ticketIdText, forType: .string)
+                            }
+                        }
+                }
+                .width(ideal: 100)
             }
             
             /// Time infos

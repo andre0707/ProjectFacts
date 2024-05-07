@@ -18,7 +18,7 @@ struct PFTimeEntry: Identifiable {
     /// The description
     let description: String
     /// The id of the ticket on which this time entry was booked
-    let ticketId: Int
+    let ticketId: Int?
     
     
     /// Text representation of `duration`
@@ -26,5 +26,8 @@ struct PFTimeEntry: Identifiable {
     /// Text representation of `billableDuration`
     var billableDurationText: String { billableDuration.formatted() }
     /// Text representation of `ticketId`
-    var ticketIdText: String { "\(ticketId)" }
+    var ticketIdText: String {
+        guard let ticketId else { return "" }
+        return "\(ticketId)"
+    }
 }

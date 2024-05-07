@@ -343,7 +343,7 @@ enum ProjectFactsAPI {
         // let invoiceOptions: String? /// APILinkObject
         let date: String
         //let timetemplate: String? /// APILinkObject
-        let ticket: TicketResponse
+        let ticket: TicketResponse?
         
         /// A structure representing a ticket response within a `TimeResponse`
         struct TicketResponse: Codable {
@@ -354,7 +354,8 @@ enum ProjectFactsAPI {
             let idKey: String
         }
         
-        var ticketId: Int { ticket.value }
+        /// The id of the ticket, if the ticket is available
+        var ticketId: Int? { ticket?.value }
     }
     
     /// This function will read the ticket time information for the provided `date`
