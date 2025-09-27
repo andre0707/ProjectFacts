@@ -54,6 +54,8 @@ struct TimesTableView: View {
                 
                 Text("Logout at: \(appController.logoutDateString)")
                 
+                Text("Booked time: \(appController.bookedTime)")
+                
                 Text("Unbooked time: \(appController.unbookedTime)")
             }
             .font(.title)

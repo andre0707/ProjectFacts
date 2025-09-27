@@ -42,6 +42,8 @@ final class AppController: ObservableObject {
     @Published private(set) var loginDateString: String = "-"
     /// A string representation of `logoutDate`
     @Published private(set) var logoutDateString: String = "-"
+    /// A string representation of all the booked time
+    @Published private(set) var bookedTime: String = "-"
     /// A string representation of `sumBreak`
     @Published private(set) var totalBreakString: String = "-"
     /// A string representation of all the unbooked time
@@ -130,6 +132,7 @@ final class AppController: ObservableObject {
         guard let loginDate = loginDate else {
             loginDateString = "-"
             logoutDateString = "-"
+            bookedTime = "-"
             unbookedTime = "-"
             totalBreakString = "-"
             return
@@ -148,10 +151,12 @@ final class AppController: ObservableObject {
         
         let referenceDate = now + loggedInTime - totalDuration - sumBreak * 60
         if referenceDate <= now {
-            unbookedTime = "0"
+            unbookedTime = (referenceDate ..< now).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         } else {
             unbookedTime = (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         }
+        
+        bookedTime = Duration.seconds(totalDuration).formatted(.time(pattern: .hourMinute))
         
         totalBreakString = sumBreak > 0 ? "\(sumBreak.formatted()) min" : "-"
     }
