@@ -151,9 +151,9 @@ final class AppController: ObservableObject {
         
         let referenceDate = now + loggedInTime - totalDuration - sumBreak * 60
         if referenceDate <= now {
-            unbookedTime = (referenceDate ..< now).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
+            unbookedTime = "-" + (referenceDate ..< now).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         } else {
-            unbookedTime = "-" + (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
+            unbookedTime = (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         }
         
         bookedTime = Duration.seconds(totalDuration).formatted(.time(pattern: .hourMinute))
