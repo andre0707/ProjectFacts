@@ -153,7 +153,7 @@ final class AppController: ObservableObject {
         if referenceDate <= now {
             unbookedTime = (referenceDate ..< now).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         } else {
-            unbookedTime = (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
+            unbookedTime = "-" + (now ..< referenceDate).formatted(Date.ComponentsFormatStyle.extendedTimeDuration)
         }
         
         bookedTime = Duration.seconds(totalDuration).formatted(.time(pattern: .hourMinute))
